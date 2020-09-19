@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
+import { CreateTaskDto } from './dto/create.dto';
 import { Task } from './tasks.model';
 import { TasksService } from './tasks.service';
 
@@ -13,7 +14,7 @@ export class TasksController {
   }
 
   @Post()
-  createTask(@Body('title') title: string, @Body('description') description: string): Task {
-    return this.tasksService.createTask(title, description);
+  createTask(@Body() createTaskDto: CreateTaskDto): Task {
+    return this.tasksService.createTask(createTaskDto);
   }
 }
