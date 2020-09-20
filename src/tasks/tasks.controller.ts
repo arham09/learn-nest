@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create.dto';
 import { Task } from './tasks.model';
 import { TasksService } from './tasks.service';
@@ -16,6 +16,12 @@ export class TasksController {
   @Get('/:id')
   getTaskById(@Param('id') id: string): Task {
     return this.tasksService.getTaskById(id);
+  }
+
+  @Delete('/:id')
+  removeTask(@Param('id') id: string): any {
+    this.tasksService.removeTask(id);
+    return { message: 'Task has been deleted' }
   }
 
   @Post()
