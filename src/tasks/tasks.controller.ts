@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Body, Controller, Delete, Get, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create.dto';
+import { UpdateTaskDto } from './dto/update.dto';
 import { Task } from './tasks.model';
 import { TasksService } from './tasks.service';
 
@@ -28,5 +29,11 @@ export class TasksController {
   @UsePipes(ValidationPipe)
   createTask(@Body() createTaskDto: CreateTaskDto): Task {
     return this.tasksService.createTask(createTaskDto);
+  }
+
+  @Patch('/:id/status')
+  @UsePipes(ValidationPipe)
+  updateTask(@Param('id') id: string,@Body() updateTaskDto: UpdateTaskDto): Task {
+    return this.tasksService.updateTask(id, updateTaskDto);
   }
 }
